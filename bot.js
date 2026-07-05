@@ -8,10 +8,18 @@ const client = new Client({
     }
 });
 
-client.on('qr', (qr) => {
-    qrcode.generate(qr, { small: true });
-    console.log('--- NOUVEAU CODE QR À SCANNER ---');
+client.on('qr', async () => {
+    try {
+        const myNumber = "22899020300"; 
+        const pairingCode = await client.getPairingCode(myNumber);
+        console.log('--- VOTRE CODE D\'ASSOCIATION WHATSAPP ---');
+        console.log(pairingCode);
+        console.log('-----------------------------------------');
+    } catch (err) {
+        console.error("Erreur jumelage:", err);
+    }
 });
+
 
 client.on('ready', () => {
     console.log('Le robot CHINA HOUSE by NOVAROW est en ligne et prêt !');
